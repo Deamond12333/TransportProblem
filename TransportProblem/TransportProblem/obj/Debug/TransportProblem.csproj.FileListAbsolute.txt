@@ -1,9 +1,0 @@
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\bin\Debug\TransportProblem.exe.config
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\bin\Debug\TransportProblem.exe
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\bin\Debug\TransportProblem.pdb
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\obj\Debug\TransportProblem.csprojResolveAssemblyReference.cache
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\obj\Debug\TransportProblem.problemForm.resources
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\obj\Debug\TransportProblem.Properties.Resources.resources
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\obj\Debug\TransportProblem.csproj.GenerateResource.Cache
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\obj\Debug\TransportProblem.exe
-c:\users\dns\documents\visual studio 2013\Projects\TransportProblem\TransportProblem\obj\Debug\TransportProblem.pdb

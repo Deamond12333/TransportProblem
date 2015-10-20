@@ -12,9 +12,20 @@ namespace TransportProblem
 {
     public partial class resultForm : Form
     {
-        public resultForm()
+        public resultForm(int[,] result, int prodCount, int magazCount)
         {
             InitializeComponent();
+
+            data.ColumnCount = magazCount;
+            data.RowCount = prodCount;
+
+            for (int i = 0; i < prodCount; ++i)
+            {
+                for (int j = 0; j < magazCount; ++j)
+                {
+                    data[j, i].Value = result[j,i];
+                }
+            }
         }
     }
 }

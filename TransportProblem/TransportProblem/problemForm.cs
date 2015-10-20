@@ -33,32 +33,33 @@ namespace TransportProblem
 
         private void doMethod_Click(object sender, EventArgs e)
         {
-            int stocks = (int)stocksValue.Value;
-            int shops = (int)shopsValue.Value;
+            int stocks = (Int32)stocksValue.Value;
+            int shops = (Int32)shopsValue.Value;
             int[,] tariffs = new int[stocks, shops];
             int[] products = new int[stocks];
             int[] magazines = new int[shops];
             try
             {
-                for (int i = 0; i < stocks-1; ++i)
+                for (int i = 1; i < stocks; i++)
                 {
-                    Int32.TryParse(data[0, i+1].Value.ToString(), out products[i]);
-                    for (int j = 0; j < shops-1; ++j)
-                    {
-                        Int32.TryParse(data[j + 1, 0].Value.ToString(), out magazines[j]);
-                        Int32.TryParse(data[j+1, i+1].Value.ToString(), out tariffs[j, i]);
-                    }
+                    products[i - 1] = Int32.Parse(data[i, 0].Value.ToString());
+                }
+                for (int j = 1; j < shops; j++)
+                {
+                    magazines[j - 1] = Int32.Parse(data[0, j].Value.ToString());
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message);
+                throw new Exception("Не все ячейки содержат числа!");
             }
             switch (method)
             {
                 case "ns":
                     {
-
+                        int[,] result = Methods.NSMethod(products, magazines);
+                        resultForm resForm = new resultForm(result, stocks, shops);
+                        resForm.ShowDialog();
                     } break;
 
                 case "small":

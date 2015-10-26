@@ -27,57 +27,68 @@ namespace TransportProblem
                 method = "ns";
             }
             if (smallMethod.Checked == true)
+            {
                 nsMethod.Checked = false;
-            method = "small";
+                method = "small";
+            }
         }
 
         private void doMethod_Click(object sender, EventArgs e)
         {
-            int stocks = (Int32)stocksValue.Value;
-            int shops = (Int32)shopsValue.Value;
+            int stocks = (int)stocksValue.Value;
+            int shops = (int)shopsValue.Value;
             int[,] tariffs = new int[stocks, shops];
             int[] products = new int[stocks];
             int[] magazines = new int[shops];
             try
             {
-                for (int i = 1; i < stocks; i++)
+                for (int i = 0; i < stocks; i++)
                 {
-                    products[i - 1] = Int32.Parse(data[i, 0].Value.ToString());
+                    int.TryParse(data[0, i + 1].Value.ToString(), out products[i]);
                 }
-                for (int j = 1; j < shops; j++)
+                for (int j = 0; j < shops; j++)
                 {
-                    magazines[j - 1] = Int32.Parse(data[0, j].Value.ToString());
+                    int.TryParse(data[j + 1, 0].Value.ToString(), out magazines[j]);
+                }
+                for (int i = 0; i < stocks; i++)
+                {
+                    for (int j = 0; j < shops; j++)
+                    {
+                        int.TryParse(data[j + 1, i + 1].Value.ToString(), out tariffs[j, i]);
+                    }
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                throw new Exception("Не все ячейки содержат числа!");
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            switch (method)
+            switch(method)
             {
                 case "ns":
                     {
                         int[,] result = Methods.NSMethod(products, magazines);
-                        resultForm resForm = new resultForm(result, stocks, shops);
-                        resForm.ShowDialog();
+                        int cost = Methods.GetCost(tariffs, result, shops, stocks);
+                        resultForm res = new resultForm(result, stocks, shops, cost);
+                        res.Show();
                     } break;
-
                 case "small":
                     {
-
+                        int[,] result = Methods.SmallMethod(products, magazines, tariffs);
+                        int cost = Methods.GetCost(tariffs, result, shops, stocks);
+                        resultForm res = new resultForm(result, stocks, shops, cost);
+                        res.Show();
                     } break;
-
                 default:
                     {
-                        throw new Exception("Выберите метод решения!");
-                    }
+                        MessageBox.Show("Выберите метод решения!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    } break;
             }
         }
 
         private void stocksValue_ValueChanged(object sender, EventArgs e)
         {
-            data.RowCount = (int)stocksValue.Value + 1;
-            for (int i = 0; i < (int)stocksValue.Value + 1; ++i)
+            data.RowCount = 1 + (int)stocksValue.Value;
+            for (int i = 0; i < data.RowCount; i++)
             {
                 data.Rows[i].HeaderCell.Value = "A" + i;
                 data[0, 0].ReadOnly = true;
@@ -86,12 +97,15 @@ namespace TransportProblem
 
         private void shopsValue_ValueChanged(object sender, EventArgs e)
         {
-            data.ColumnCount = (int)shopsValue.Value + 1;
-            for (int i = 0; i < (int)shopsValue.Value + 1; ++i)
+            data.ColumnCount = 1 + (int)shopsValue.Value;
+            for (int i = 0; i < data.ColumnCount; i++)
             {
                 data.Columns[i].HeaderCell.Value = "B" + i;
-                data[0, 0].ReadOnly = true;
                 data.Columns[i].Width = 30;
+            }
+            foreach (DataGridViewColumn column in data.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
     }

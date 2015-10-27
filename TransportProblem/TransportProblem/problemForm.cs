@@ -50,32 +50,32 @@ namespace TransportProblem
                 {
                     int.TryParse(data[j + 1, 0].Value.ToString(), out magazines[j]);
                 }
-                for (int i = 0; i < stocks; i++)
+                for (int i = 1; i < stocks + 1; ++i)
                 {
-                    for (int j = 0; j < shops; j++)
+                    for (int j = 1; j < shops + 1; ++j)
                     {
-                        int.TryParse(data[j + 1, i + 1].Value.ToString(), out tariffs[j, i]);
+                        int.TryParse(data[j, i].Value.ToString(), out tariffs[i - 1, j - 1]);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                throw new Exception(ex.Message);
             }
             switch(method)
             {
                 case "ns":
                     {
                         int[,] result = Methods.NSMethod(products, magazines);
-                        int cost = Methods.GetCost(tariffs, result, shops, stocks);
-                        resultForm res = new resultForm(result, stocks, shops, cost);
+                        int cost = Methods.GetCost(tariffs, result);
+                        resultForm res = new resultForm(result, cost);
                         res.Show();
                     } break;
                 case "small":
                     {
                         int[,] result = Methods.SmallMethod(products, magazines, tariffs);
-                        int cost = Methods.GetCost(tariffs, result, shops, stocks);
-                        resultForm res = new resultForm(result, stocks, shops, cost);
+                        int cost = Methods.GetCost(tariffs, result);
+                        resultForm res = new resultForm(result, cost);
                         res.Show();
                     } break;
                 default:

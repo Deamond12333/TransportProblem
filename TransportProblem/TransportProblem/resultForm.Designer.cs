@@ -31,8 +31,8 @@
             this.data = new System.Windows.Forms.DataGridView();
             this.results = new System.Windows.Forms.TabControl();
             this.firstResult = new System.Windows.Forms.TabPage();
-            this.optimalResult = new System.Windows.Forms.TabPage();
             this.cost = new System.Windows.Forms.Label();
+            this.optimalResult = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.results.SuspendLayout();
             this.firstResult.SuspendLayout();
@@ -47,6 +47,7 @@
             this.data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.data.Location = new System.Drawing.Point(3, 6);
             this.data.Name = "data";
+            this.data.ReadOnly = true;
             this.data.RowHeadersWidth = 60;
             this.data.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.data.Size = new System.Drawing.Size(738, 326);
@@ -74,16 +75,6 @@
             this.firstResult.Text = "Предварительное решение";
             this.firstResult.UseVisualStyleBackColor = true;
             // 
-            // optimalResult
-            // 
-            this.optimalResult.Location = new System.Drawing.Point(4, 22);
-            this.optimalResult.Name = "optimalResult";
-            this.optimalResult.Padding = new System.Windows.Forms.Padding(3);
-            this.optimalResult.Size = new System.Drawing.Size(747, 377);
-            this.optimalResult.TabIndex = 1;
-            this.optimalResult.Text = "Оптимизация";
-            this.optimalResult.UseVisualStyleBackColor = true;
-            // 
             // cost
             // 
             this.cost.AutoSize = true;
@@ -93,6 +84,16 @@
             this.cost.Size = new System.Drawing.Size(303, 24);
             this.cost.TabIndex = 1;
             this.cost.Text = "Общая стоимость: ^[0-9]{1-5}$";
+            // 
+            // optimalResult
+            // 
+            this.optimalResult.Location = new System.Drawing.Point(4, 22);
+            this.optimalResult.Name = "optimalResult";
+            this.optimalResult.Padding = new System.Windows.Forms.Padding(3);
+            this.optimalResult.Size = new System.Drawing.Size(747, 377);
+            this.optimalResult.TabIndex = 1;
+            this.optimalResult.Text = "Оптимизация";
+            this.optimalResult.UseVisualStyleBackColor = true;
             // 
             // resultForm
             // 

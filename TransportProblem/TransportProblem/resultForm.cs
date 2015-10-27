@@ -12,12 +12,12 @@ namespace TransportProblem
 {
     public partial class resultForm : Form
     {
-        public resultForm(int[,] result, int prodCount, int magazCount, int _cost)
+        public resultForm(int[,] result, int _cost)
         {
             InitializeComponent();
 
-            data.ColumnCount = magazCount;
-            data.RowCount = prodCount;
+            data.ColumnCount = result.GetUpperBound(1) + 1;
+            data.RowCount = result.GetUpperBound(0) + 1;
 
             foreach (DataGridViewColumn column in data.Columns)
             {
@@ -35,13 +35,14 @@ namespace TransportProblem
                 data.Columns[i].Width = 30;
             }
 
-            for (int i = 0; i < prodCount; ++i)
+            for (int i = 0; i < data.RowCount; ++i)
             {
-                for (int j = 0; j < magazCount; ++j)
+                for (int j = 0; j < data.ColumnCount; ++j)
                 {
                     data[j, i].Value = result[i, j].ToString();
                 }
             }
+
             cost.Text = "Общая стоимость: " + _cost;
         }
     }

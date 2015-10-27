@@ -31,20 +31,20 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(problemForm));
             this.info = new System.Windows.Forms.TextBox();
             this.methodPanel = new System.Windows.Forms.GroupBox();
-            this.nsMethod = new System.Windows.Forms.RadioButton();
-            this.smallMethod = new System.Windows.Forms.RadioButton();
             this.doMethod = new System.Windows.Forms.Button();
+            this.smallMethod = new System.Windows.Forms.RadioButton();
+            this.nsMethod = new System.Windows.Forms.RadioButton();
             this.data = new System.Windows.Forms.DataGridView();
             this.size = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.stocksValue = new System.Windows.Forms.NumericUpDown();
             this.shopsValue = new System.Windows.Forms.NumericUpDown();
+            this.stocksValue = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.methodPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.size.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stocksValue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.shopsValue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stocksValue)).BeginInit();
             this.SuspendLayout();
             // 
             // info
@@ -69,17 +69,15 @@
             this.methodPanel.TabStop = false;
             this.methodPanel.Text = "Метод решения";
             // 
-            // nsMethod
+            // doMethod
             // 
-            this.nsMethod.AutoSize = true;
-            this.nsMethod.Location = new System.Drawing.Point(6, 27);
-            this.nsMethod.Name = "nsMethod";
-            this.nsMethod.Size = new System.Drawing.Size(177, 17);
-            this.nsMethod.TabIndex = 0;
-            this.nsMethod.TabStop = true;
-            this.nsMethod.Text = "Метод северо-западного угла";
-            this.nsMethod.UseVisualStyleBackColor = true;
-            this.nsMethod.CheckedChanged += new System.EventHandler(this.Methods_CheckedChanged);
+            this.doMethod.Location = new System.Drawing.Point(6, 78);
+            this.doMethod.Name = "doMethod";
+            this.doMethod.Size = new System.Drawing.Size(177, 23);
+            this.doMethod.TabIndex = 2;
+            this.doMethod.Text = "Решить";
+            this.doMethod.UseVisualStyleBackColor = true;
+            this.doMethod.Click += new System.EventHandler(this.doMethod_Click);
             // 
             // smallMethod
             // 
@@ -93,15 +91,17 @@
             this.smallMethod.UseVisualStyleBackColor = true;
             this.smallMethod.CheckedChanged += new System.EventHandler(this.Methods_CheckedChanged);
             // 
-            // doMethod
+            // nsMethod
             // 
-            this.doMethod.Location = new System.Drawing.Point(6, 78);
-            this.doMethod.Name = "doMethod";
-            this.doMethod.Size = new System.Drawing.Size(177, 23);
-            this.doMethod.TabIndex = 2;
-            this.doMethod.Text = "Решить";
-            this.doMethod.UseVisualStyleBackColor = true;
-            this.doMethod.Click += new System.EventHandler(this.doMethod_Click);
+            this.nsMethod.AutoSize = true;
+            this.nsMethod.Location = new System.Drawing.Point(6, 27);
+            this.nsMethod.Name = "nsMethod";
+            this.nsMethod.Size = new System.Drawing.Size(177, 17);
+            this.nsMethod.TabIndex = 0;
+            this.nsMethod.TabStop = true;
+            this.nsMethod.Text = "Метод северо-западного угла";
+            this.nsMethod.UseVisualStyleBackColor = true;
+            this.nsMethod.CheckedChanged += new System.EventHandler(this.Methods_CheckedChanged);
             // 
             // data
             // 
@@ -131,14 +131,21 @@
             this.size.TabStop = false;
             this.size.Text = "Размер таблицы";
             // 
-            // label3
+            // shopsValue
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(7, 55);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Магазинов:";
+            this.shopsValue.Location = new System.Drawing.Point(79, 52);
+            this.shopsValue.Name = "shopsValue";
+            this.shopsValue.Size = new System.Drawing.Size(120, 20);
+            this.shopsValue.TabIndex = 15;
+            this.shopsValue.ValueChanged += new System.EventHandler(this.shopsValue_ValueChanged);
+            // 
+            // stocksValue
+            // 
+            this.stocksValue.Location = new System.Drawing.Point(79, 27);
+            this.stocksValue.Name = "stocksValue";
+            this.stocksValue.Size = new System.Drawing.Size(120, 20);
+            this.stocksValue.TabIndex = 14;
+            this.stocksValue.ValueChanged += new System.EventHandler(this.stocksValue_ValueChanged);
             // 
             // label2
             // 
@@ -149,21 +156,14 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Складов:";
             // 
-            // stocksValue
+            // label3
             // 
-            this.stocksValue.Location = new System.Drawing.Point(79, 27);
-            this.stocksValue.Name = "stocksValue";
-            this.stocksValue.Size = new System.Drawing.Size(120, 20);
-            this.stocksValue.TabIndex = 14;
-            this.stocksValue.ValueChanged += new System.EventHandler(this.stocksValue_ValueChanged);
-            // 
-            // shopsValue
-            // 
-            this.shopsValue.Location = new System.Drawing.Point(79, 52);
-            this.shopsValue.Name = "shopsValue";
-            this.shopsValue.Size = new System.Drawing.Size(120, 20);
-            this.shopsValue.TabIndex = 15;
-            this.shopsValue.ValueChanged += new System.EventHandler(this.shopsValue_ValueChanged);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(7, 55);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(66, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Магазинов:";
             // 
             // problemForm
             // 
@@ -184,8 +184,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.data)).EndInit();
             this.size.ResumeLayout(false);
             this.size.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.stocksValue)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.shopsValue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stocksValue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

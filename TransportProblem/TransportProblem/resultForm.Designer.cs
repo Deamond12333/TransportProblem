@@ -33,9 +33,13 @@
             this.firstResult = new System.Windows.Forms.TabPage();
             this.cost = new System.Windows.Forms.Label();
             this.optimalResult = new System.Windows.Forms.TabPage();
+            this.optimizeCost = new System.Windows.Forms.Label();
+            this.optimize = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.results.SuspendLayout();
             this.firstResult.SuspendLayout();
+            this.optimalResult.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.optimize)).BeginInit();
             this.SuspendLayout();
             // 
             // data
@@ -87,6 +91,8 @@
             // 
             // optimalResult
             // 
+            this.optimalResult.Controls.Add(this.optimizeCost);
+            this.optimalResult.Controls.Add(this.optimize);
             this.optimalResult.Location = new System.Drawing.Point(4, 22);
             this.optimalResult.Name = "optimalResult";
             this.optimalResult.Padding = new System.Windows.Forms.Padding(3);
@@ -94,6 +100,31 @@
             this.optimalResult.TabIndex = 1;
             this.optimalResult.Text = "Оптимизация";
             this.optimalResult.UseVisualStyleBackColor = true;
+            // 
+            // optimizeCost
+            // 
+            this.optimizeCost.AutoSize = true;
+            this.optimizeCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.optimizeCost.Location = new System.Drawing.Point(7, 347);
+            this.optimizeCost.Name = "optimizeCost";
+            this.optimizeCost.Size = new System.Drawing.Size(303, 24);
+            this.optimizeCost.TabIndex = 3;
+            this.optimizeCost.Text = "Общая стоимость: ^[0-9]{1-5}$";
+            // 
+            // optimize
+            // 
+            this.optimize.AllowUserToAddRows = false;
+            this.optimize.AllowUserToDeleteRows = false;
+            this.optimize.AllowUserToResizeColumns = false;
+            this.optimize.AllowUserToResizeRows = false;
+            this.optimize.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.optimize.Location = new System.Drawing.Point(4, 6);
+            this.optimize.Name = "optimize";
+            this.optimize.ReadOnly = true;
+            this.optimize.RowHeadersWidth = 60;
+            this.optimize.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.optimize.Size = new System.Drawing.Size(738, 326);
+            this.optimize.TabIndex = 2;
             // 
             // resultForm
             // 
@@ -111,6 +142,9 @@
             this.results.ResumeLayout(false);
             this.firstResult.ResumeLayout(false);
             this.firstResult.PerformLayout();
+            this.optimalResult.ResumeLayout(false);
+            this.optimalResult.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.optimize)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -122,5 +156,7 @@
         private System.Windows.Forms.TabPage firstResult;
         private System.Windows.Forms.Label cost;
         private System.Windows.Forms.TabPage optimalResult;
+        private System.Windows.Forms.Label optimizeCost;
+        private System.Windows.Forms.DataGridView optimize;
     }
 }

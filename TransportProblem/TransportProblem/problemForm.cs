@@ -62,20 +62,57 @@ namespace TransportProblem
             {
                 throw new Exception(ex.Message);
             }
+
+            if (Methods.sumElemInMas(products) != Methods.sumElemInMas(magazines))
+            {
+                MessageBox.Show("Задача открытого типа", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (Methods.sumElemInMas(products) > Methods.sumElemInMas(magazines))
+                {
+                    shops++;
+                    Array.Resize(ref magazines, shops);
+                    magazines[shops - 1] = Methods.sumElemInMas(products) - Methods.sumElemInMas(magazines);
+                }
+                else
+                {
+                    stocks++;
+                    Array.Resize(ref products, stocks);
+                    products[stocks - 1] = Methods.sumElemInMas(magazines) - Methods.sumElemInMas(products);
+                }
+                int[,] optimize = new int[products.Length, magazines.Length];
+                for (int i = 0; i < optimize.GetUpperBound(0) + 1; ++i)
+                {
+                    for (int j = 0; j < optimize.GetUpperBound(1) + 1; ++j)
+                    {
+                        optimize[i, j] = 0;
+                    }
+                }
+                for (int i = 0; i < tariffs.GetUpperBound(0) + 1; ++i)
+                {
+                    for (int j = 0; j < tariffs.GetUpperBound(1) + 1; ++j)
+                    {
+                        optimize[i, j] = tariffs[i, j];
+                    }
+                }
+
+                tariffs = optimize;
+            }
+
             switch(method)
             {
                 case "ns":
                     {
                         int[,] result = Methods.NSMethod(products, magazines);
                         int cost = Methods.GetCost(tariffs, result);
-                        resultForm res = new resultForm(result, cost);
+                        List<int[]> potencials = Methods.Potencials(result, tariffs);
+                        resultForm res = new resultForm(result, cost, potencials);
                         res.Show();
                     } break;
                 case "small":
                     {
                         int[,] result = Methods.SmallMethod(products, magazines, tariffs);
                         int cost = Methods.GetCost(tariffs, result);
-                        resultForm res = new resultForm(result, cost);
+                        List<int[]> potencials = Methods.Potencials(result, tariffs);
+                        resultForm res = new resultForm(result, cost, potencials);
                         res.Show();
                     } break;
                 default:

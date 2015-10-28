@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Methods.cs" />
+    <Compile Include="Point.cs" />
     <Compile Include="problemForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -9,18 +9,6 @@ namespace TransportProblem
 {
     public static class Methods
     {
-        private static int equals(int[] mas)
-        {
-            for (int i = 0; i < mas.Length; ++i)
-            {
-                if (mas[i] != 0)
-                {
-                    return i;
-                }
-                else continue;
-            }
-            return -1;
-        }
         private static int minInStr(int[,] matrix, int str, List<int> iskl)
         {
             List<int> elems = new List<int>();
@@ -113,6 +101,78 @@ namespace TransportProblem
                         res += result[i, j] * tariffs[i, j];
                     }
                 }
+            }
+            return res;
+        }
+
+        public static List<int[]> Potencials(int[,] result, int [,] tariffs)
+        {
+            int[] u = new int[result.GetUpperBound(0) + 1];
+            for (int i = 1; i < result.GetUpperBound(0) + 1; ++i)
+            {
+                u[i] = 100101;
+            }
+            int[] v = new int[result.GetUpperBound(1) + 1];
+            for (int i = 0; i < result.GetUpperBound(1) + 1; ++i)
+            {
+                v[i] = 100101;
+            }
+
+            List<Point> points = new List<Point>();
+            for (int i = 0; i < result.GetUpperBound(0) + 1; ++i)
+            {
+                for (int j = 0; j < result.GetUpperBound(1) + 1; ++j)
+                {
+                    if (result[i, j] > 0)
+                    {
+                        Point point = new Point(i, j);
+                        points.Add(point);
+                    }
+                    else continue;
+                }
+            }
+            List<int> ygriki = new List<int>();
+            foreach(Point p in points)
+            {
+                if (p.X() == 0)
+                {
+                    ygriki.Add(p.Y());
+                }
+            }
+            Point qurPoint = new Point(0, ygriki.Min());
+            u[qurPoint.X()] = 0;
+            v[qurPoint.Y()] = tariffs[qurPoint.X(), qurPoint.Y()] - u[qurPoint.X()];
+            points.Remove(qurPoint);
+            while (points.Count > 0)
+            {
+                foreach (Point p in points)
+                {
+                    if ((p.X() == qurPoint.X()) || (p.Y() == qurPoint.Y()))
+                    {
+                        qurPoint = p;
+                        break;
+                    }
+                }
+                if (v[qurPoint.Y()] == 100101)
+                {
+                    v[qurPoint.Y()] = tariffs[qurPoint.X(), qurPoint.Y()] - u[qurPoint.X()];
+                }
+                else if (u[qurPoint.X()] == 100101)
+                {
+                    u[qurPoint.X()] = tariffs[qurPoint.X(), qurPoint.Y()] - v[qurPoint.Y()];
+                }
+                points.Remove(qurPoint);
+            }
+            List<int[]> res = new List<int[]>(){u, v};
+            return res;
+        }
+
+        public static int sumElemInMas(int[] mas)
+        {
+            int res = 0;
+            for (int i = 0; i < mas.Length; ++i)
+            {
+                res += mas[i];
             }
             return res;
         }

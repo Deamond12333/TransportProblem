@@ -26,6 +26,25 @@ namespace TransportProblem
             else return index[elems.IndexOf(elems.Min())];
         }
 
+        private static bool Existance(List<Potencial> list, int index)
+        {
+            int res = 0;
+            foreach (Potencial p in list)
+                if (p.getIndex() == index)
+                    res++;
+            if (res == 0)
+                return true;
+            else
+                return false;
+        }
+
+        private static int indexValue(List<Potencial> list, int index)
+        {
+            foreach (Potencial p in list)
+                if (p.getIndex() == index) return p.getValue();
+            return -1;
+        }
+
         private static int minInStr(int[,] matrix, int str)
         {
             List<int> elems = new List<int>();
@@ -66,8 +85,8 @@ namespace TransportProblem
             int prodCount = products.Length;
             int magazCount = magazines.Length;
             int[,] result = new int[prodCount, magazCount];
-
-            int prod = 0, magaz = minInStr(tariffs, prod); List<int> iskl = new List<int>();
+            int prod = 0, magaz = minInStr(tariffs, prod);
+            List<int> iskl = new List<int>();
 
             while (magaz != -1)
             {
@@ -105,19 +124,14 @@ namespace TransportProblem
             return res;
         }
 
-        public static List<int[]> Potencials(int[,] result, int [,] tariffs)
+        public static List<List<Potencial>> Potencials(int[,] result, int [,] tariffs)
         {
-            int[] u = new int[result.GetUpperBound(0) + 1];
-            for (int i = 1; i < result.GetUpperBound(0) + 1; ++i)
-            {
-                u[i] = 100101;
-            }
-            int[] v = new int[result.GetUpperBound(1) + 1];
-            for (int i = 0; i < result.GetUpperBound(1) + 1; ++i)
-            {
-                v[i] = 100101;
-            }
+            Potencial qurPv;
+            Potencial qurPu;
 
+            List<Potencial> u = new List<Potencial>();
+            List<Potencial> v = new List<Potencial>( );
+            int basis = 0;
             List<Point> points = new List<Point>();
             for (int i = 0; i < result.GetUpperBound(0) + 1; ++i)
             {
@@ -126,11 +140,13 @@ namespace TransportProblem
                     if (result[i, j] > 0)
                     {
                         Point point = new Point(i, j);
+                        basis++;
                         points.Add(point);
                     }
                     else continue;
                 }
             }
+
             List<int> ygriki = new List<int>();
             foreach(Point p in points)
             {
@@ -140,8 +156,10 @@ namespace TransportProblem
                 }
             }
             Point qurPoint = new Point(0, ygriki.Min());
-            u[qurPoint.X()] = 0;
-            v[qurPoint.Y()] = tariffs[qurPoint.X(), qurPoint.Y()] - u[qurPoint.X()];
+            qurPu = new Potencial(0, qurPoint.X());
+            u.Add(qurPu);
+            qurPv = new Potencial(tariffs[qurPoint.X(), qurPoint.Y()], qurPoint.Y());
+            v.Add(qurPv);
             points.Remove(qurPoint);
             while (points.Count > 0)
             {
@@ -152,18 +170,26 @@ namespace TransportProblem
                         qurPoint = p;
                         break;
                     }
+                    else if ((basis < result.GetUpperBound(1) + 1 + result.GetUpperBound(1))&&(qurPoint.Y() < result.GetUpperBound(1)))
+                    {
+                        qurPoint.setY(qurPoint.Y() + 1);
+                        points.Add(qurPoint);
+                        break;
+                    }
                 }
-                if (v[qurPoint.Y()] == 100101)
+                if (Existance(v, qurPoint.Y()) == false)
                 {
-                    v[qurPoint.Y()] = tariffs[qurPoint.X(), qurPoint.Y()] - u[qurPoint.X()];
+                    qurPv = new Potencial(tariffs[qurPoint.X(), qurPoint.Y()] - indexValue(u, qurPoint.X()), qurPoint.Y());
+                    v.Add(qurPv);
                 }
-                else if (u[qurPoint.X()] == 100101)
+                else if (Existance(u, qurPoint.X()) == false)
                 {
-                    u[qurPoint.X()] = tariffs[qurPoint.X(), qurPoint.Y()] - v[qurPoint.Y()];
+                    qurPu = new Potencial(tariffs[qurPoint.X(), qurPoint.Y()] - indexValue(v, qurPoint.Y()), qurPoint.X());
+                    u.Add(qurPu);
                 }
                 points.Remove(qurPoint);
             }
-            List<int[]> res = new List<int[]>(){u, v};
+            List<List<Potencial>> res = new List<List<Potencial>>(){u, v};
             return res;
         }
 
@@ -175,6 +201,60 @@ namespace TransportProblem
                 res += mas[i];
             }
             return res;
+        }
+    }
+
+    public class Point
+    {
+        private int x { get; set; }
+        private int y { get; set; }
+
+        public Point(int _x, int _y)
+        {
+            x = _x;
+            y = _y;
+        }
+        public Point()
+        {
+            x = 0;
+            y = 0;
+        }
+        public int X()
+        {
+            return x;
+        }
+
+        public void setX(int value)
+        {
+            x = value;
+        }
+        public void setY(int value)
+        {
+            y = value;
+        }
+        public int Y()
+        {
+            return y;
+        }
+    }
+
+    public class Potencial
+    {
+        private int value { get; set; }
+        private int index { get; set; }
+        public Potencial(int _value, int _index)
+        {
+            value = _value;
+            index = _index;
+        }
+        public int getValue()
+        {
+            return value;
+        }
+
+        public int getIndex()
+        {
+            return index;
         }
     }
 }

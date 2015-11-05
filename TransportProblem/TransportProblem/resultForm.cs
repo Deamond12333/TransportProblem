@@ -12,7 +12,7 @@ namespace TransportProblem
 {
     public partial class resultForm : Form
     {
-        public resultForm(int[,] result, int _cost, List<int[]> potencials)
+        public resultForm(int[,] result, int _cost, List<List<Potencial>> potencials)
         {
             InitializeComponent();
 
@@ -27,16 +27,19 @@ namespace TransportProblem
             for (int i = 0; i < data.RowCount-1; i++)
             {
                 data.Rows[i].HeaderCell.Value = "A" + (i + 1);
+                data.Rows[i].Height = data.Height/(data.RowCount+1);
+
             }
             data.Rows[data.RowCount - 1].HeaderCell.Value = "V";
+            data.Rows[data.RowCount - 1].Height = data.Height / (data.RowCount+1);
 
             for (int i = 0; i < data.ColumnCount-1; i++)
             {
                 data.Columns[i].HeaderCell.Value = "B" + (i+1);
-                data.Columns[i].Width = 30;
+                data.Columns[i].Width = data.Width / (data.ColumnCount+1);
             }
             data.Columns[data.ColumnCount - 1].HeaderCell.Value = "U";
-            data.Columns[data.ColumnCount - 1].Width = 30;
+            data.Columns[data.ColumnCount - 1].Width = data.Width/(data.ColumnCount+1);
 
             for (int i = 0; i < data.RowCount-1; ++i)
             {
@@ -45,17 +48,19 @@ namespace TransportProblem
                     data[j, i].Value = result[i, j].ToString();
                 }
             }
-
+            
             for (int i = 0; i < data.RowCount - 1; ++i)
             {
-                data[data.ColumnCount - 1, i].Value = potencials[0][i];
+                foreach (Potencial p in potencials[0])
+                    if (p.getIndex() == i) data[data.ColumnCount - 1, i].Value = potencials[0][i].getValue().ToString();
             }
 
             for (int i = 0; i < data.ColumnCount - 1; ++i)
             {
-                data[i, data.RowCount - 1].Value = potencials[1][i];
+                foreach (Potencial p in potencials[1])
+                    if (p.getIndex() == i) data[i, data.RowCount - 1].Value = potencials[1][i].getValue().ToString();
             }
-
+            
             cost.Text = "Общая стоимость: " + _cost;
         }
     }

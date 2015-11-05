@@ -103,7 +103,7 @@ namespace TransportProblem
                     {
                         int[,] result = Methods.NSMethod(products, magazines);
                         int cost = Methods.GetCost(tariffs, result);
-                        List<int[]> potencials = Methods.Potencials(result, tariffs);
+                        List<List<Potencial>> potencials = Methods.Potencials(result, tariffs);
                         resultForm res = new resultForm(result, cost, potencials);
                         res.Show();
                     } break;
@@ -111,7 +111,7 @@ namespace TransportProblem
                     {
                         int[,] result = Methods.SmallMethod(products, magazines, tariffs);
                         int cost = Methods.GetCost(tariffs, result);
-                        List<int[]> potencials = Methods.Potencials(result, tariffs);
+                        List<List<Potencial>> potencials = Methods.Potencials(result, tariffs);
                         resultForm res = new resultForm(result, cost, potencials);
                         res.Show();
                     } break;
@@ -128,6 +128,7 @@ namespace TransportProblem
             for (int i = 0; i < data.RowCount; i++)
             {
                 data.Rows[i].HeaderCell.Value = "A" + i;
+                data.Rows[i].Height = data.Height / (data.RowCount+1);
                 data[0, 0].ReadOnly = true;
             }
         }
@@ -138,7 +139,7 @@ namespace TransportProblem
             for (int i = 0; i < data.ColumnCount; i++)
             {
                 data.Columns[i].HeaderCell.Value = "B" + i;
-                data.Columns[i].Width = 30;
+                data.Columns[i].Width = data.Width/(data.ColumnCount+1);
             }
             foreach (DataGridViewColumn column in data.Columns)
             {

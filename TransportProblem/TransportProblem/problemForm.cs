@@ -18,7 +18,6 @@ namespace TransportProblem
         {
             InitializeComponent();
         }
-
         private void Methods_CheckedChanged(object sender, EventArgs e)
         {
             if (nsMethod.Checked == true)
@@ -32,7 +31,6 @@ namespace TransportProblem
                 method = "small";
             }
         }
-
         private void doMethod_Click(object sender, EventArgs e)
         {
             int stocks = (int)stocksValue.Value;
@@ -96,23 +94,22 @@ namespace TransportProblem
 
                 tariffs = optimize;
             }
-
-            switch(method)
+            switch (method)
             {
                 case "ns":
                     {
-                        int[,] result = Methods.NSMethod(products, magazines);
+                        float[,] result = Methods.NSMethod(products, magazines);
                         int cost = Methods.GetCost(tariffs, result);
                         List<List<Potencial>> potencials = Methods.Potencials(result, tariffs);
-                        resultForm res = new resultForm(result, cost, potencials);
+                        resultForm res = new resultForm(result, tariffs, cost, potencials);
                         res.Show();
                     } break;
                 case "small":
                     {
-                        int[,] result = Methods.SmallMethod(products, magazines, tariffs);
+                        float[,] result = Methods.SmallMethod(products, magazines, tariffs);
                         int cost = Methods.GetCost(tariffs, result);
                         List<List<Potencial>> potencials = Methods.Potencials(result, tariffs);
-                        resultForm res = new resultForm(result, cost, potencials);
+                        resultForm res = new resultForm(result, tariffs, cost, potencials);
                         res.Show();
                     } break;
                 default:

@@ -37,7 +37,7 @@ namespace TransportProblem
             return elems.IndexOf(elems.Min());
         }
 
-        private static bool Existance(List<Potencial> list, int index)
+        private static bool Existence(List<Potencial> list, int index)
         {
             int res = 0;
             foreach (Potencial p in list)
@@ -185,9 +185,9 @@ namespace TransportProblem
                 int basis = points.Count;
                 if (t < basis - 1) t++;
                 else t = 0;
-                if (Existance(u, points[t].x)) v.Add(new Potencial(tariffs[points[t].x, points[t].y] - indexValue(u, points[t].x), points[t].y));
-                else if (Existance(v, points[t].y)) u.Add(new Potencial(tariffs[points[t].x, points[t].y] - indexValue(v, points[t].y), points[t].x));
-                if ((Existance(v, points[t].y)) && (Existance(u, points[t].x))) points.Remove(points[t]);
+                if (Existence(u, points[t].x)) v.Add(new Potencial(tariffs[points[t].x, points[t].y] - indexValue(u, points[t].x), points[t].y));
+                else if (Existence(v, points[t].y)) u.Add(new Potencial(tariffs[points[t].x, points[t].y] - indexValue(v, points[t].y), points[t].x));
+                if ((Existence(v, points[t].y)) && (Existence(u, points[t].x))) points.Remove(points[t]);
                 
             }
             List<List<Potencial>> res = new List<List<Potencial>>() { u, v };
